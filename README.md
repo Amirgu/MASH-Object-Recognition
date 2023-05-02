@@ -33,6 +33,10 @@ We studied DiffusionDet which is a diffusion model for object detection. Specifi
 #### Results
 
 
+
+https://user-images.githubusercontent.com/127419134/235793017-8e57ba41-a68f-4296-9d3d-820bc148a957.mp4
+
+
 #### Datasets
 
 We have used the [MS-COCO dataset]() for our object detection experiments and the [MOT17 dataset]() for our Multi-Object Tracking experiments.
