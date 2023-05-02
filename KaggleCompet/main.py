@@ -7,7 +7,8 @@ from torchvision import datasets
 from torch.autograd import Variable
 from tqdm import tqdm
 import torch.cuda
-from holocron.models.classification import repvgg_a0
+from model import Net
+from data import data_transforms, data_val_transforms
 # Training settings
 parser = argparse.ArgumentParser(description='RecVis A3 training script')
 parser.add_argument('--data', type=str, default='bird_dataset', metavar='D',
@@ -33,7 +34,7 @@ torch.manual_seed(args.seed)
 
     
 # Data initialization and loading
-from data import data_transforms, data_val_transforms
+
 
 train_loader = torch.utils.data.DataLoader(
     datasets.ImageFolder(args.data + '/train_images',
@@ -46,15 +47,15 @@ val_loader = torch.utils.data.DataLoader(
 
 # Neural network and optimizer
 # We define neural net in model.py so that it caondan be reused by the evaluate.py script
-from model import Net
-device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-import torchvision
-# Assuming that we are on a CUDA machine, this should print a CUDA device:
-from model import Net
-model=Net()
 
+device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+
+
+
+model=Net()
 model=model.to(device)
-model.load_state_dict(torch.load('densenet/model_5.pth'))
+#model.load_state_dict(torch.load('densenet/model_5.pth')) 
+
 feature_extract = True
 
 optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)

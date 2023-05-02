@@ -2,8 +2,8 @@ import cv2
 from os.path import join
 import os
 from imgaug import augmenters as iaa
-
-augmented_image_dir = "bird_dataset_crop_2/train_images/"
+### Bird Dataset Image Augmentation 
+augmented_image_dir = "bird_dataset copy/train_images/"
 
 species = [
     '004.Groove_billed_Ani',
@@ -29,14 +29,6 @@ species = [
 '033.Yellow_billed_Cuckoo',
 
 '034.Gray_crowned_Rosy_Finch']
-#### Image Augmentation
-#
-# Author: Evan Juras
-# Date: 5/15/20
-# Description:
-# This program takes a set of original images and creates augmented images that can be used
-# as additional training data for an image classification model. It loads each original image,
-# creates N randomly augmented images, and saves the new images.
 
 import imgaug as ia
 from imgaug import augmenters as iaa
@@ -49,7 +41,7 @@ import cv2
 
 ## Define control variables and parse user inputs
 parser = argparse.ArgumentParser()
-parser.add_argument('--imgdir', help='Folder containing images to augment',default='bird_dataset_cropc/train_images/')
+parser.add_argument('--imgdir', help='Folder containing images to augment',default='bird_dataset copy/train_images/')
                     
 parser.add_argument('--imgext', help='File extension of images (for example, .JPG)',
                     default='.jpg')
@@ -60,9 +52,6 @@ parser.add_argument('--debug', help='Displays every augmented image when enabled
 
 args = parser.parse_args()
 
-#### Define augmentation sequence ####
-# This can be tweaked to create a huge variety of image augmentations.
-# See https://github.com/aleju/imgaug for a list of augmentation techniques available.
 seq1 = iaa.Sequential([
                                  # Horizontal flip 50% of images
     iaa.Fliplr(0.5),               # Crop all images between 0% to 10%
@@ -96,9 +85,7 @@ hue =iaa.Sequential([
 
                 
                 ])
-#### Start of main program ####
 
-# Obtain list of images in IMG_DIR directory
 
 j=0
 def augm(img_fns):
@@ -143,4 +130,4 @@ for x in species:
         img_fns = glob(IMG_DIR + '/*' + IMG_EXTENSION)
         augm(img_fns)
     j=j+1
-augm('bird_dataset_cropc/train_images/')
+augm('bird_dataset copy/train_images/')
