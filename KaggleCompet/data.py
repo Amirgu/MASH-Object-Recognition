@@ -1,6 +1,5 @@
 import zipfile
 import os
-
 import torchvision.transforms as transforms
 from torchvision.transforms.autoaugment import AutoAugmentPolicy
 # once the images are loaded, how do we pre-process them before being passed into the network

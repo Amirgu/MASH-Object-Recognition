@@ -8,6 +8,8 @@ import torchvision
 import matplotlib.pyplot as plt
 from PIL import Image,ImageFile
 
+import os 
+
 
 
 
@@ -17,15 +19,15 @@ model2=torchvision.models.detection.fasterrcnn_mobilenet_v3_large_fpn(weights="C
 
 # Put the model in inference mode
 model.eval()
-# Get the transforms for the model's weights
+
 
 model2.eval()
-
-import os 
 
 
 
 def save_img(bboxes,full_path):
+    """Saving images
+    """
     img = Image.open(full_path)
     left, top , right, bottom  = bboxes
     cropped = img.crop( ( left, top, right, bottom) )  # size: 45, 45
@@ -34,10 +36,12 @@ def save_img(bboxes,full_path):
     except IOError:
         ImageFile.MAXBLOCK = cropped.size[0] * cropped.size[1]
         cropped.save(full_path, "JPEG", quality=80, optimize=True, progressive=True)
+        
 weights = FasterRCNN_ResNet50_FPN_Weights.COCO_V1
 weights2= FasterRCNN_MobileNet_V3_Large_FPN_Weights.COCO_V1
 def compare_model(model, img,weights):
-    
+    """"Compares two models for cropping images
+    """
     preprocess = weights.transforms()
     batch = [preprocess(img)]
     prediction = model(batch)[0]
@@ -53,8 +57,10 @@ def compare_model(model, img,weights):
             
             return maximum_proba, bboxes0
     return(-1,-1)
-compare_model(model,img1,weights)
+
 def main_crop(path):
+    """produces cropped images of the bird dataset
+    """
     for dossier, sous_dossiers, fichiers in os.walk(path):
         print (sous_dossiers)
         for num, fichier in enumerate(fichiers):
@@ -75,4 +81,4 @@ def main_crop(path):
                 save_img(bboxes_f2,full_path)
                 continue
 
-main_crop('./bird_dataset_crop/train_images')
+
